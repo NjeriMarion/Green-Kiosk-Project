@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/orders_list.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html'%}
+    <div class="order-container">
+        <h1>Order Summary</h1>
+        <h4>Order Number: {{ orders.order_Number }}</h4>
+        
+        <h2>Products:</h2>
+        {% if cart_products %}
+            <ul class="product-list">
+                {% for product in cart_products %}
+                    <li class="product-item">
+                        <div class="product-info">
+                            <h4 class="product-name">{{ product.name }}</h4>
+                            <span class="product-price">Price: ${{ product.price }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="total-amount">Total Amount: ${{ total_amount }}</p>
+        {% else %}
+            <p>Your order is empty.</p>
+        {% endif %}
+
+        <div class="choose-payment-container">
+            <h2>Choose Payment Method:</h2>
+            <form method="POST" action="{% url 'payment_process_view' 1 %}">
+                {% csrf_token %}
+                <label for="payment_method">Payment Method:</label>
+                <select name="payment_method" id="payment_method">
+                    <option value="Mpesa">Mpesa</option>
+                    <option value="Debit Card">Cash</option>
+                </select>
+                <button type="submit">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Product Details</title>
+     {%load static%}
+     <link rel="stylesheet" type="text/css" href="{% static 'css/product_details.css' %}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+ </head>
+ <body>
+    {% include 'navbar.html'%}
+     <div class="product-details-container">
+        
+         <img class="product-image" src="{{ product.image.url }}" alt="Product Image">
+
+         <div class="pro">
+             <h4 class="product-name">{{ product.name }}</h4>
+             <p class="product-description">{{ product.description }}</p>
+             <span class="product-price">${{ product.price }}</span>
+             <a href="{% url 'product_cart' product.id  %}" class="add-to-cart-button">Add to Cart</a>
+        </div>
+
+     </div>
+ </body>
+ </html>
+ 
